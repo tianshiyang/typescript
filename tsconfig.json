@@ -4,6 +4,7 @@
     "module": "commonjs",
     "allowJs": true,
     "checkJs": true,
+    "strictBindCallApply": true, // 开启call bind apply检查
     "outDir": "./src/js"
   }
 }
