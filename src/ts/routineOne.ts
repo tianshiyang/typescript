@@ -1,3 +1,7 @@
+/**
+ * 套路一、模式匹配做提取
+ */
+
 // Demo 模式匹配
 type GetValueType<P> = P extends Promise<infer value> ? value : never
 type Demo1 = Promise<"abc">
