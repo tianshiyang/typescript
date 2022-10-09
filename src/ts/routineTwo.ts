@@ -43,3 +43,64 @@ type StrDemo2 = CamelCase<"dong_dong_dong", "_">
 type DropSubStr<Str extends string, Prefix extends string> = Str extends `${infer Left}${Prefix}${infer Right}` ?
   `${Left}${Right}` : Str
 type StrDemo3 = DropSubStr<"this is aaa demo3", " aaa">
+
+/**
+ * 3. 函数类型的重新构造
+ */
+
+// Demo AppendArgument
+type AppendArgument<Func extends Function, Arg> = Func extends (...args: infer Args) => infer ReturnType ?
+  (...args: [...Args, Arg]) => ReturnType : never
+type AppendArgumentDemo = AppendArgument<(name: number) => boolean, string>
+
+/**
+ * 4. 索引类型的重新构造
+ */
+
+// Demo1 Mapping
+type Mapping<Obj extends object> = {
+  [key in keyof Obj]: [Obj[key], Obj[key], Obj[key]]
+}
+type MappingDemo = Mapping<{name: "张三", age: 123}>
+
+// Demo2 索引变成大写
+type UppercaseKey<Obj extends object> = {
+  [key in keyof Obj as Uppercase<key & string>] : Obj[key]
+}
+type UppercaseKeyDemo = UppercaseKey<{name: "张三", age: 123}>
+
+// Demo3 变成只读模式
+type ToReadonly<Obj extends object> = {
+  readonly [key in keyof Obj]: Obj[key]
+}
+type ToReadonlyDemo = ToReadonly<{name: "张三", age: 123}>
+
+// Demo4 增加可选修饰符
+type ToPartial<Obj extends object> = {
+  [key in keyof Obj]?: Obj[key]
+} 
+type ToPartialDemo = ToPartial<{name: "张三", age: 123}>
+
+// Demo5 去掉readonly修饰符
+type ToMutable<Obj extends object> = {
+  -readonly [key in keyof Obj]: Obj[key]
+}
+type ToMutableDemo = ToMutable<{
+  readonly name: "张三",
+  age: 23
+}>
+
+// Demo6 去掉可选修饰符
+type ToRequired<Obj extends object> = {
+  [key in keyof Obj] - ?: Obj[key]
+}
+type ToRequiredDemo = ToRequired<{
+  name?: "张三",
+  age: 23
+}>
+
+// Demo7 过滤指定类型的值
+type FilterByValueType<Obj extends Record<string, any>, ValueType> = {
+  [key in keyof Obj as Obj[key] extends ValueType ? key : never]: Obj[key]
+}
+type FilterByValueTypeDemo = FilterByValueType<{name: "张三", age: 123, hobby: ["a", "b"]}, string | number>
