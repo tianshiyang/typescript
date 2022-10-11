@@ -25,3 +25,13 @@ type ParseQueryString<Str extends string> =
   Str extends `${infer First}&${infer Rest}` ? MergeParams<ParseParams<First>, ParseQueryString<Rest>> : ParseParams<Str>
 type ParseQueryStringDemo =  ParseQueryString<"a=1&b=2&c=3">
 
+/**
+ * 柯里化
+ * const func = (a: string, b: number, c: boolean) => object;
+ * 转换为
+ * (a: string) => (b: number) => (c: boolean) => object
+ */
+type CurriedFunc<Args extends unknown[], Return> = Args extends [infer First, ...infer Rest] ? (arg: First) => CurriedFunc<Rest, Return> : Return
+type Currying<Func> = Func extends (...args: infer Args) => infer Return ? CurriedFunc<Args, Return> : never
+type CurryingDemo = Currying<(a: string, b: number, c: boolean) => object>
+
