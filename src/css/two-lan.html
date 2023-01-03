@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <header>
+    <style>
+      /* 方案1 float */
+      /* .content {
+        height: 100px;
+      }
+      .left {
+        float: left;
+        width: 100px;
+        height: 200px;
+        background: red;
+      }
+      .right {
+        margin-left: 100px;
+        width: auto;
+        height: 200px;
+        background-color: yellow;
+      } */
+
+      /* 方案2 弹性盒 */
+      /* .content {
+        height: 100px;
+        display: flex;
+      }
+      .left {
+        width: 100px;
+        height: 200px;
+        background: blue;
+      }
+      .right {
+        flex: 1;
+        height: 200px;
+        background-color: yellow;
+      } */
+    
+      /* 方案3利用bfc */
+      .left {
+        width: 100px;
+        height: 200px;
+        background: red;
+        float: left;
+      }
+      .right {
+        height: 300px;
+        background: blue;
+        overflow: hidden;
+      }
+
+      /* 方案4 利用绝对定位 */
+      /* .content {
+        position: relative;
+        height: 100px;
+      }
+      .left {
+        position: absolute;
+        width: 200px;
+        height: 100px;
+        background: tomato;
+      }
+      .right {
+        margin-left: 200px;
+        background: gold;
+      } */
+    </style>
+  </header>
+  <body>
+    <div class="content">
+      <div class="left">left</div>
+      <div class="right">right</div>
+    </div>
+  </body>
+</html>
